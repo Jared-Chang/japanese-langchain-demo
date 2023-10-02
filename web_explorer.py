@@ -2,6 +2,8 @@ import streamlit as st
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.retrievers.web_research import WebResearchRetriever
+from langchain.prompts import ChatMessagePromptTemplate, PromptTemplate
+
 from dotenv import load_dotenv
 
 import os
@@ -81,11 +83,26 @@ question = st.text_input("`Ask a question:`")
 
 if question:
 
+
+    prompt = """
+    客戶詢問的問題是""" + question + """
+
+    查詢到的資料是：
+
+    {summaries}
+
+    請使用中文回覆客戶
+"""
+
+    print(prompt)
+
+    chat_message_prompt = PromptTemplate(template=prompt, input_variables=["summaries"])
+
     # Generate answer (w/ citations)
     import logging
     logging.basicConfig()
     logging.getLogger("langchain.retrievers.web_research").setLevel(logging.INFO)    
-    qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_retriever)
+    qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_retriever, chain_type_kwargs={"prompt": chat_message_prompt})
 
     # Write answer and sources
     retrieval_streamer_cb = PrintRetrievalHandler(st.container())
