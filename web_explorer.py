@@ -85,13 +85,13 @@ if question:
 
 
     prompt = """
-    客戶詢問的問題是""" + question + """
+    お客様の問題は""" + question + """
 
-    查詢到的資料是：
+    以下はサーチの結果：
 
     {summaries}
 
-    請使用中文回覆客戶
+    日本語で返事してください。
 """
 
     print(prompt)
