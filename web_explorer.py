@@ -78,8 +78,10 @@ if 'retriever' not in st.session_state:
 web_retriever = st.session_state.retriever
 llm = st.session_state.llm
 
+st.image("./Going_Cloud_Logo_White.png")
+
 # User input 
-question = st.text_input("`Ask a question:`")
+question = st.text_input("`問題をここで入力します:`")
 
 if question:
 
