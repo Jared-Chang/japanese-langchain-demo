@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 
 import os
 
-st.set_page_config(page_title="test search", page_icon="🌐")
+st.set_page_config(page_title="Going Cloud ChatBot Demo", page_icon="🌐")
+
 
 def settings():
 
